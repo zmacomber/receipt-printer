@@ -1,3 +1,5 @@
-* Fill in the rest of the state codes
-* Need to put in functionality for maintaining accounts
-* Reports should include summary for a particular account by date range
+This app was built using Eclipse (Indigo I believe).
+
+There is much room for improvement.
+
+Run through the tests (ReceiptPrinterTest) and make sure to write new ones and refactor as needed.
