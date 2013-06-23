@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import com.mbc.receiptprinter.constant.ActionCommand;
 import com.mbc.receiptprinter.ui.tabs.TotalYearlyAmountReportTab;
 
+/**
+ * Total Yearly Amount Report action class that gets invoked when printing a yearly report or changing the year to print.
+ */
 public class TotalYearlyAmountReportListener implements ActionListener {
 	
 	private TotalYearlyAmountReportTab totalYearlyAmountReportTab;

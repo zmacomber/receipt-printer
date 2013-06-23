@@ -5,6 +5,9 @@ import javax.swing.JComboBox;
 
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * Primary combo box implementation for ReceiptPrinter
+ */
 public class ReceiptPrinterComboBox extends JComboBox<String> {
 
 	private static final long serialVersionUID = 1L;

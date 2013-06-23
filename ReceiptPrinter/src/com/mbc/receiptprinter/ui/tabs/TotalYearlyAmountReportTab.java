@@ -37,8 +37,8 @@ public class TotalYearlyAmountReportTab extends JPanel {
         totalYearlyAmountReportTable = new TotalYearlyAmountReportTable(receiptFetch.getReceiptYears()[0]); // Gets the latest year on record
 
         receiptYears = new ReceiptPrinterComboBox("RECEIPT_YEARS", receiptFetch.getReceiptYears()); 
-	receiptYears.addActionListener(new TotalYearlyAmountReportListener(this));
-	receiptYears.setActionCommand(ActionCommand.YEARLY_REPORT_SELECTED_YEAR_CHANGED);
+        receiptYears.addActionListener(new TotalYearlyAmountReportListener(this));
+        receiptYears.setActionCommand(ActionCommand.YEARLY_REPORT_SELECTED_YEAR_CHANGED);
         add(receiptYears, new ReceiptPrinterConstraints.Builder().gridx(3).gridy(1).fill(GridBagConstraints.BOTH).anchor(GridBagConstraints.LINE_START).build());	
 
         add(new TotalYearlyAmountReportPrintButton(this), new ReceiptPrinterConstraints.Builder().gridx(3).gridy(6).anchor(GridBagConstraints.WEST).build());		

@@ -16,6 +16,9 @@ import com.mbc.receiptprinter.ui.print.ReceiptPrintOut;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * A key listener for when the delete or p (print) key are pushed on the address table
+ */
 public class ReceiptTableKeyListener implements KeyListener {
 	
 	private ReceiptTable table;
@@ -77,9 +80,9 @@ public class ReceiptTableKeyListener implements KeyListener {
 				int yLocation = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.y_location"));
 				int width = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.width"));
 				int height = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.height"));
-			        printOut.setLocation(xLocation, yLocation);
-			        printOut.setSize(width, height);
-				
+			    
+				printOut.setLocation(xLocation, yLocation);
+			    printOut.setSize(width, height);
 				printOut.printReceipt();
 				printOut.dispose();
 			}

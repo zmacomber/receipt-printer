@@ -11,6 +11,9 @@ import org.apache.commons.io.FileUtils;
 
 import com.mbc.receiptprinter.constant.FilePaths;
 
+/*
+ * Core class for logging in ReceiptPrinter
+ */
 public class ReceiptPrinterLogger {
 		
 	public static void logMessage(Class<?> c, Level loggingLevel, String message) {

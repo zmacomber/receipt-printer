@@ -1,13 +1,11 @@
 package com.mbc.receiptprinter.ui.address;
 
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.print.PrinterException;
@@ -16,6 +14,7 @@ import java.text.MessageFormat;
 
 import java.util.logging.Level;
 
+import com.mbc.receiptprinter.ui.print.TextTableRenderer;
 import com.mbc.receiptprinter.ui.tabs.AddressTabColumns;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
@@ -23,6 +22,8 @@ import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 public class AddressTable extends JTable {
 	
 	private static final long serialVersionUID 		= 1L;
+	
+	// Parameters used for adjusting fonts and layout for displaying and printing addresses
 	private static final Font SCREEN_FONT 			= new Font(ReceiptPrinterProperties.getProperty("addressTable.fontName"), 
 															   Font.PLAIN, 
 															   Integer.valueOf(ReceiptPrinterProperties.getProperty("addressTable.screenFontSize")));
@@ -55,7 +56,7 @@ public class AddressTable extends JTable {
 		setShowGrid(true);
 		setGridColor(Color.black);
 		setModel(new AddressTableModel());
-		setToolTipText("To delete, press the \"Delete\" key");
+		setToolTipText(ReceiptPrinterProperties.getProperty("table.deleteTooltip"));
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setPreferredScrollableViewportSize(new Dimension(500, 70));
 		setFillsViewportHeight(true);
@@ -65,12 +66,18 @@ public class AddressTable extends JTable {
 		addKeyListener(new AddressTableKeyListener(this));
 	}
 	
+	/**
+	 * Repopulates the AddressTable
+	 */
 	public void repopulate() {
 		setModel(new AddressTableModel());
 		setTableLook(SCREEN_COLUMN_PARAMS, SCREEN_FONT, SCREEN_HEADER_FONT, screenTableCellRenderer);
 		repaint();
 	} 
 
+	/**
+	 * Expands the AddressTable for printing and then sets it back to a size appropriate for the screen
+	 */
 	public void printAddresses() {
 		setTableLook(PRINT_COLUMN_PARAMS, PRINT_FONT, PRINT_HEADER_FONT, printTableCellRenderer);
 		try {
@@ -81,7 +88,14 @@ public class AddressTable extends JTable {
 		setTableLook(SCREEN_COLUMN_PARAMS, SCREEN_FONT, SCREEN_HEADER_FONT, screenTableCellRenderer);
 	}
 
-	private void setTableLook(int[] columnParams, Font font, Font headerFont, TableCellRenderer tableCellRenderer) {
+	/**
+	 * Sets how the table looks based on if the table is being used for printing or displaying on the screen 
+	 * @param columnParams Params for columns and rows
+	 * @param font Main font used in the table
+	 * @param headerFont Font used for the header of the table
+	 * @param tableCellRenderer
+	 */
+	void setTableLook(int[] columnParams, Font font, Font headerFont, TableCellRenderer tableCellRenderer) {
 		
 		for (int x = 0; x < AddressTabColumns.values().length; x++) {
 			getColumnModel().getColumn(x).setCellRenderer(tableCellRenderer);
@@ -94,21 +108,5 @@ public class AddressTable extends JTable {
 		getColumnModel().getColumn(AddressTabColumns.ZIP.getColumn()).setMaxWidth(columnParams[1]);
 
 		setRowHeight(columnParams[2]);
-	}
-	
-	class TextTableRenderer extends JTextArea implements TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-	
-		public TextTableRenderer(Font font) {		
-			setLineWrap(true);
-			setWrapStyleWord(true);
-			setFont(font);
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			setText((value == null) ? "" : value.toString());
-			return this;
-		}
 	}
 }

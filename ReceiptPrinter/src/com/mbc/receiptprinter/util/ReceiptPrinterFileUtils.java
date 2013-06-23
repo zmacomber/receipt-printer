@@ -10,6 +10,9 @@ import org.apache.commons.io.FileUtils;
 
 import com.mbc.receiptprinter.constant.FileDelimiters;
 
+/*
+ * Various File utility functions.  This class extends the Apache Commons FileUtils class.
+ */
 public class ReceiptPrinterFileUtils extends FileUtils {
 	
 	public static String getFileContents(String filePath) throws IOException {

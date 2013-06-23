@@ -14,13 +14,19 @@ import com.mbc.receiptprinter.ui.tabs.AddressTab;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * Address action class that gets invoked when an address is added or addresses are printed
+ */
 public class AddressActionListener implements ActionListener {
 	
 	private AddressTab addressTab;
+	
 	public AddressActionListener(AddressTab addressTab) { this.addressTab = addressTab; }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		// Action for the adding of an Address
 		if (e.getActionCommand().equals(ActionCommand.ADD_ADDRESS)) {
 			AddressFetchProcess afp = new AddressFetchProcess();
 			Address addr = Address.newInstance(afp.getLastAddressId() + 1,
@@ -36,6 +42,7 @@ public class AddressActionListener implements ActionListener {
 								
 			JOptionPane.showMessageDialog(ReceiptPrinterUIUtils.getMainFrame(), outcome);
 			
+			// Reset the address form fields if the address was added successfully
 			if (outcome.equals(ReceiptPrinterProperties.getProperty("address.outcome.added"))) {
 				addressTab.getAddressTable().repopulate();
 				addressTab.getTxtName().setText("");
@@ -45,6 +52,8 @@ public class AddressActionListener implements ActionListener {
 				addressTab.getTxtZip().setText("");
 			}
 		}
+		
+		// Action for the printing of addresses
 		if (e.getActionCommand().equals(ActionCommand.PRINT_ADDRESSES)) {	
 			addressTab.getAddressTable().printAddresses();
 		}

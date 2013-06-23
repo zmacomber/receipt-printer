@@ -1,7 +1,6 @@
 package com.mbc.receiptprinter.ui;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -17,6 +16,9 @@ import com.mbc.receiptprinter.ui.tabs.ReceiptTab;
 import com.mbc.receiptprinter.ui.tabs.TotalYearlyAmountReportTab;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 
+/**
+ * Sets up the tabs in the program
+ */
 public class MainTabbedPane extends JPanel {
 
 	private static final long serialVersionUID = 4837233552147889889L;
@@ -39,7 +41,6 @@ public class MainTabbedPane extends JPanel {
 		tabbedPane.addTab("Receipts", receiptTab);
 
 		JComponent panel4 = new TotalYearlyAmountReportTab();
-		panel4.setPreferredSize(new Dimension(410, 50));
 		tabbedPane.addTab("Total Yearly Amount Report", panel4);
 
 		// Add the tabbed pane to this panel.
@@ -48,6 +49,8 @@ public class MainTabbedPane extends JPanel {
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
+		// Refreshes the combo boxes for the ReceiptTab & TotalYearlyAmountReportTab
+		// when they are focused on
 		tabbedPane.addChangeListener(new ChangeListener() {
 
 			@Override

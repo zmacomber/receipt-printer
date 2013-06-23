@@ -53,7 +53,7 @@ public class AddressTab extends JPanel {
 		add(new AddressTableScrollPane(addressTable), new ReceiptPrinterConstraints.Builder().gridx(1).gridy(8).fill(GridBagConstraints.BOTH).gridwidth(4).build());
 	}
 
-	public AddressTable getAddressTable() 		{ return addressTable;   		}
+	public AddressTable getAddressTable() 		{ return addressTable;  }
 	public JTextField getTxtName() 				{ return txtName; 		}
 	public JTextField getTxtAddress1() 			{ return txtAddress1; 	}
 	public JTextField getTxtAddress2() 			{ return txtAddress2;	}

@@ -16,8 +16,17 @@ import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.validator.DesignationValidator;
 
+/**
+ * Deletes a Designation from the Designation data file
+ */
 public class DesignationDeleteProcess {
 
+	/**
+	 * Deletes a Designation from the Designation data file.  If validation errors occur during processing, a message will
+	 * be sent back to the caller indicating the errors.
+	 * @param designation The Designation to delete
+	 * @return An outcome message indicating if the delete was successful or not
+	 */
 	public String deleteDesignation(Designation designation) {
 		if (DesignationValidator.designationIsInvalid(designation)) return ReceiptPrinterProperties.getProperty("designation.outcome.deleted_is_invalid");
 		if (designationExistsInReceipt(designation)) return ReceiptPrinterProperties.getProperty("designation.outcome.designation_exists_in_receipt");
@@ -42,6 +51,11 @@ public class DesignationDeleteProcess {
 		}
 	}
 
+	/**
+	 * Checks to see if the Designation to delete exists in a Receipt
+	 * @param designation The Designation that is desired to be deleted
+	 * @return True if the Designation exists in the Receipt data file; false otherwise
+	 */
 	boolean designationExistsInReceipt(Designation designation) {
 		ReceiptFetchProcess receiptFetch = new ReceiptFetchProcess();
 		List<Receipt> receipts = receiptFetch.fetchReceipts();

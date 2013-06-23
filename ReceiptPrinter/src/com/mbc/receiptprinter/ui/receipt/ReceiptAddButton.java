@@ -1,11 +1,10 @@
 package com.mbc.receiptprinter.ui.receipt;
 
-import java.awt.Font;
-
 import javax.swing.JButton;
 
 import com.mbc.receiptprinter.constant.ActionCommand;
 import com.mbc.receiptprinter.ui.tabs.ReceiptTab;
+import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
 public class ReceiptAddButton extends JButton {
 
@@ -15,6 +14,6 @@ public class ReceiptAddButton extends JButton {
 		setText("Add Receipt");
 		setActionCommand(ActionCommand.ADD_RECEIPT);
 		addActionListener(new ReceiptActionListener(receiptTab));
-		setFont(new Font("Tahoma", Font.PLAIN, 12));
+		setFont(ReceiptPrinterUIUtils.getDefaultFont());
 	}
 }

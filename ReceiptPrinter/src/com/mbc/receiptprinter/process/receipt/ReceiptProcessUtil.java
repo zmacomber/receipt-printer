@@ -4,8 +4,17 @@ import java.util.List;
 
 import com.mbc.receiptprinter.bean.Receipt;
 
+/**
+ * Various helper methods used in the processing of Receipt records
+ */
 public class ReceiptProcessUtil {
 
+	/**
+	 * Checks to see if a Receipt already exists
+	 * @param receiptToCheck The Receipt to verify
+	 * @param receipts The List of Receipt records to scan for the receiptToCheck
+	 * @return true if the receiptToCheck is found in the receipts List; false otherwise
+	 */
 	public static boolean receiptAlreadyExists(Receipt receiptToCheck, List<Receipt> receipts) {
 		if (receiptToCheck == null) return false;
 		boolean receiptAlreadyExists = false;

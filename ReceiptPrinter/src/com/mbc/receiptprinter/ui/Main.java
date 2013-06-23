@@ -6,6 +6,9 @@ import javax.swing.UIManager;
 
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * Entry point for the program
+ */
 public class Main {
 
 	public static void main(String[] args) {

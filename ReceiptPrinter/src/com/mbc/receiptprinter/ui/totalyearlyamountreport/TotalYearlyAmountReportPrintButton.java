@@ -1,11 +1,10 @@
 package com.mbc.receiptprinter.ui.totalyearlyamountreport;
 
-import java.awt.Font;
-
 import javax.swing.JButton;
 
 import com.mbc.receiptprinter.constant.ActionCommand;
 import com.mbc.receiptprinter.ui.tabs.TotalYearlyAmountReportTab;
+import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
 public class TotalYearlyAmountReportPrintButton extends JButton {
 
@@ -15,6 +14,6 @@ public class TotalYearlyAmountReportPrintButton extends JButton {
 		setText("Print Yearly Report");
 		setActionCommand(ActionCommand.PRINT_YEARLY_REPORT);
 		addActionListener(new TotalYearlyAmountReportListener(totalYearlyAmountReportTab));
-		setFont(new Font("Tahoma", Font.PLAIN, 12));
+		setFont(ReceiptPrinterUIUtils.getDefaultFont());
 	}
 }

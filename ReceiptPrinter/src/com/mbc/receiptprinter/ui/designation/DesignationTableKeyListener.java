@@ -10,9 +10,13 @@ import com.mbc.receiptprinter.process.designation.DesignationFetchProcess;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * A key listener for when the delete key is pushed on the designation table
+ */
 public class DesignationTableKeyListener implements KeyListener {
 	
 	private DesignationTable table;
+	
 	public DesignationTableKeyListener(DesignationTable table) { this.table = table; }
 
 	@Override
@@ -23,6 +27,8 @@ public class DesignationTableKeyListener implements KeyListener {
 			} else {
 				String name = table.getModel().getValueAt(table.getSelectedRow(), 0).toString().trim();
 				int selectedOption = DesignationTableDeleteOptionPane.showOptionDialog(name);
+				
+				// Zero = "Yes" in DesignationTableDeleteOptionPane
 				if (selectedOption == 0) {
 					DesignationDeleteProcess designationDeleteProcess = new DesignationDeleteProcess();
 					DesignationFetchProcess designationFetchProcess = new DesignationFetchProcess();

@@ -13,7 +13,16 @@ import com.mbc.receiptprinter.ui.tabs.AddressTabColumns;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterStringUtils;
 
+/**
+ * Responsible for the fetching of Addresses
+ */
 public class AddressFetchProcess {
+	
+	/**
+	 * Fetches an Address by the Address id
+	 * @param id The id is the first field in an Address record
+	 * @return The Address that contains the given id; otherwise null
+	 */
 	public Address fetchAddress(long id) {
 		if (id == 0) return null;
 		Address fetched = null;
@@ -25,6 +34,16 @@ public class AddressFetchProcess {
 		}
 		return fetched;
 	}
+	
+	/**
+	 * Fetches an Address by it's key fields.  The combination of name, address1, city and stateCode must
+	 * be unique in the application
+	 * @param name The Address name
+	 * @param address1 The primary street, road, p.o. box, etc... for this Address
+	 * @param city The city of the Address
+	 * @param stateCode The stateCode (i.e. NY as opposed to New York) of the Address
+	 * @return The Address that contains the given params; otherwise null
+	 */
 	public Address fetchAddress(String name, String address1, String city, String stateCode) {
 		if (ReceiptPrinterStringUtils.isNullOrEmpty(name) ||
 			ReceiptPrinterStringUtils.isNullOrEmpty(address1) ||
@@ -46,6 +65,14 @@ public class AddressFetchProcess {
 		}
 		return fetched;
 	}
+	
+	/**
+	 * Fetches an Address from a receipt address.  A receipt address is formatted
+	 * like this: Address name (address1, city, stateCode)
+	 * @param receiptAddress An address that's formatted specifically for use in receipts
+	 * @return The Address that matches the name, address1, city and stateCode extracted from 
+	 * the receipt address; otherwise null
+	 */
 	public Address fetchAddressFromReceipt(String receiptAddress) {
 		if (ReceiptPrinterStringUtils.isNullOrEmpty(receiptAddress)) {
 			return null;
@@ -57,6 +84,11 @@ public class AddressFetchProcess {
 		
 		return fetchAddress(name, address1, city, stateCode);
 	}
+	
+	/**
+	 * Fetches all Address records
+	 * @return A List of all of the Address records in the Address data file; otherwise an empty list 
+	 */
 	public List<Address> fetchAddresses() {
 		FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
 		List<Address> addresses = new ArrayList<Address>();
@@ -67,6 +99,11 @@ public class AddressFetchProcess {
 		}
 		return addresses;
 	}
+	
+	/**
+	 * Formats the Address records in such a way as to be able to display them in a table on the user interface
+	 * @return A two dimensional Object array of Address data that is used for display purposes
+	 */
 	public Object[][] getAddressData() {
 		List<Address> addresses = fetchAddresses();
 		Collections.sort(addresses);
@@ -83,6 +120,11 @@ public class AddressFetchProcess {
 		}
 		return data;
 	}
+	
+	/**
+	 * Used for populating receipt address combo boxes on the user interface
+	 * @return A String array of addresses formatted for display on the receipt page
+	 */
 	public String[] getAddressesForReceipts() {
 		List<Address> addresses = fetchAddresses();
 		Collections.sort(addresses);
@@ -95,12 +137,18 @@ public class AddressFetchProcess {
 		}
 		return addressesForReceipts;
 	}
+	
+	/**
+	 * Gets the last Address id in the Address data file
+	 * @return The last Address id found; otherwise zero
+	 */
 	public long getLastAddressId() {
-		List<Address> addresses = fetchAddresses();
-		if (addresses.size() == 0) {
-			return 0;
-		} else {
-			return addresses.get(addresses.size() - 1).getId();
+		long lastAddressId = 0;
+		for (Address addr : fetchAddresses()) {
+			if (addr.getId() > lastAddressId) {
+				lastAddressId = addr.getId();
+			}
 		}
+		return lastAddressId;
 	}
 }

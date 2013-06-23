@@ -16,7 +16,17 @@ import com.mbc.receiptprinter.util.ReceiptPrinterNameUtils;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.validator.DesignationValidator;
 
+/**
+ * Appends a Designation to the Designation data file
+ */
 public class DesignationAppendProcess {
+	
+	/**
+	 * Appends a Designation to the Designation data file.  If validation errors occur, a message will be sent back to the caller
+	 * indicating what errors occurred.
+	 * @param designation The Designation to append to the Designation data file
+	 * @return An outcome message that indicates if the append was successful or otherwise
+	 */
 	public String appendDesignation(Designation designation) {
 		if (DesignationValidator.designationIsInvalid(designation)) return ReceiptPrinterProperties.getProperty("designation.outcome.name_not_filled_in");
 		

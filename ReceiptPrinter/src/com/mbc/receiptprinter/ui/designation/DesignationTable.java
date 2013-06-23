@@ -6,13 +6,15 @@ import java.awt.Dimension;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
+
 public class DesignationTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;
 
 	public DesignationTable() {
 		setModel(new DesignationTableModel());
-		setToolTipText("To delete, press the \"Delete\" key");
+		setToolTipText(ReceiptPrinterProperties.getProperty("table.deleteTooltip"));
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setPreferredScrollableViewportSize(new Dimension(250, 70));
 		setFillsViewportHeight(true);

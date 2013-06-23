@@ -18,6 +18,14 @@ import com.mbc.receiptprinter.validator.AddressValidator;
  * Appends an Address to the Address data file
  */
 public class AddressAppendProcess {
+	
+	
+	/**
+	 * Appends an Address to the Address data file.  If validation errors occur, a message will be sent back to the caller
+	 * indicating what errors occurred.
+	 * @param address The Address to append to the Address data file
+	 * @return An outcome message that indicates if the append was successful or otherwise
+	 */
 	public String appendAddress(Address address) {
 		if (AddressValidator.addressIsInvalid(address)) return ReceiptPrinterProperties.getProperty("address.outcome.added_not_filled_in");
 		

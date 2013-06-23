@@ -12,7 +12,7 @@ public class ConvertFieldsToAddress implements ConvertFields<Address> {
 	* @throws IllegalArgumentException If fields is null or not the correct length
 	*/
 	public Address convert(String[] fields) {
-		int fieldLength = Address.class.getDeclaredFields().length; 
+		int fieldLength = 7; 
 		if ((fields == null) || (fields.length != fieldLength)) {
 			throw new IllegalArgumentException("Fields param (" + fields + ") must not be null and have a length of " + fieldLength); 
 		}

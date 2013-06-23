@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import com.mbc.receiptprinter.ui.tabs.ReceiptTabColumns;
+import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 
 public class ReceiptTable extends JTable {
 	
@@ -14,7 +15,8 @@ public class ReceiptTable extends JTable {
 
 	public ReceiptTable() {
 		setModel(new ReceiptTableModel());
-		setToolTipText("To delete, press the \"Delete\" key.  To print, press the \"p\" key.");
+		setToolTipText(ReceiptPrinterProperties.getProperty("table.deleteTooltip") + "  " +
+					   ReceiptPrinterProperties.getProperty("table.printTooltip"));
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setPreferredScrollableViewportSize(new Dimension(500, 70));
 		setFillsViewportHeight(true);

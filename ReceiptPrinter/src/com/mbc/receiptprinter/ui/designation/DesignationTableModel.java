@@ -10,7 +10,7 @@ public class DesignationTableModel extends DefaultTableModel {
 	
 	public DesignationTableModel() {
 		DesignationFetchProcess designationFetchProcess = new DesignationFetchProcess();
-		setDataVector(designationFetchProcess.getAddressData(), new Object[] { "Name" } );
+		setDataVector(designationFetchProcess.getDesignationData(), new Object[] { "Name" } );
 	}
 	
 	@Override

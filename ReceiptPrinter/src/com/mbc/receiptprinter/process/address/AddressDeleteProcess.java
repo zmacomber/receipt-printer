@@ -16,8 +16,17 @@ import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.validator.AddressValidator;
 
+/**
+ * Deletes an Address from the Address data file
+ */
 public class AddressDeleteProcess {
 
+	/**
+	 * Deletes an Address from the Address data file.  If validation errors occur during processing, a message will
+	 * be sent back to the caller indicating the errors.
+	 * @param addr The Address to delete
+	 * @return An outcome message indicating if the delete was successful or not
+	 */
 	public String deleteAddress(Address addr) {
 		if (AddressValidator.addressIsInvalid(addr)) return ReceiptPrinterProperties.getProperty("address.outcome.deleted_is_invalid");
 		if (addressExistsInReceipt(addr)) return ReceiptPrinterProperties.getProperty("address.outcome.address_exists_in_receipt");
@@ -42,7 +51,12 @@ public class AddressDeleteProcess {
 		}
 	}
 
-	private boolean addressExistsInReceipt(Address addr) {
+	/**
+	 * Checks to see if the Address to delete exists in a Receipt
+	 * @param addr The Address that is desired to be deleted
+	 * @return True if the Address exists in the Receipt data file; false otherwise
+	 */
+	boolean addressExistsInReceipt(Address addr) {
 		ReceiptFetchProcess receiptFetch = new ReceiptFetchProcess();
 		List<Receipt> receipts = receiptFetch.fetchReceipts();
 		for (Receipt receipt : receipts) {

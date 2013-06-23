@@ -3,6 +3,9 @@ package com.mbc.receiptprinter.ui.constraints;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * Builder for populating default GridBagConstraints and optionally setting individual constraints
+ */
 public class ReceiptPrinterConstraints extends GridBagConstraints {
 
 	private static final long serialVersionUID = 1L;

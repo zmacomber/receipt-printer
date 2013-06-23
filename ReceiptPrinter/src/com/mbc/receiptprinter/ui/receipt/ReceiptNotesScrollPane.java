@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
+
 public class ReceiptNotesScrollPane extends JScrollPane {
 
 	private static final long serialVersionUID = 1L;
@@ -12,6 +14,8 @@ public class ReceiptNotesScrollPane extends JScrollPane {
 	public ReceiptNotesScrollPane(JTextArea notes) {
 		setViewportView(notes);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		setPreferredSize(new Dimension(300, 100));
+		int width = Integer.valueOf(ReceiptPrinterProperties.getProperty("receiptNotesScrollPane.width"));
+		int height = Integer.valueOf(ReceiptPrinterProperties.getProperty("receiptNotesScrollPane.height"));
+		setPreferredSize(new Dimension(width, height));
 	}
 }

@@ -10,6 +10,9 @@ import com.mbc.receiptprinter.process.address.AddressFetchProcess;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * A key listener for when the delete key is pushed on the address table
+ */
 public class AddressTableKeyListener implements KeyListener {
 	
 	private AddressTable table;
@@ -28,6 +31,7 @@ public class AddressTableKeyListener implements KeyListener {
 				
 				int selectedOption = AddressTableDeleteOptionPane.showOptionDialog(name);
 				
+				// Zero = "Yes" in AddressTableDeleteOptionPane
 				if (selectedOption == 0) {
 					AddressDeleteProcess deleteAddressProcess = new AddressDeleteProcess();
 					AddressFetchProcess fetchAddressProcess = new AddressFetchProcess();

@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import com.mbc.receiptprinter.bean.Address;
 import com.mbc.receiptprinter.bean.Designation;
 import com.mbc.receiptprinter.bean.Receipt;
+import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterStringUtils;
 
@@ -23,46 +24,73 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.logging.Level;
 
+/**
+ * Gets invoked when the user wants to print a Receipt.
+ * Displays a preview of what the Receipt will look like when printed.
+ * This JFrame will display alongside a print dialog to print the Receipt.
+ */
 public class ReceiptPrintOut extends JFrame implements Printable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the panel.
-	 */
 	public ReceiptPrintOut(Receipt receipt, Address address, Designation designation) {		
-		
+		setupOverallStructure();
+		setupMidcoastAddress();
+		setupTopSeparator();
+		setupReceiptDate(receipt);
+		setupReceivedFromLabel();
+		setupReceivedFromAddress(address);
+		setupReceiptAmount(receipt);
+		setupDesignation(designation);
+		setupReceiptNotes(receipt);
+		setupThankYouMessage();
+		setupBottomSeparator();
+		setupVerse();
+	}
+
+	void setupOverallStructure() {
 		setResizable(false);
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
+	}
 
+	void setupMidcoastAddress() {
 		JTextPane txtpnMidcoastBaptistChurch = new JTextPane();
 		txtpnMidcoastBaptistChurch.setBounds(36, 0, 193, 45);
-		txtpnMidcoastBaptistChurch.setBackground(new Color(255, 255, 255));
-		txtpnMidcoastBaptistChurch.setForeground(new Color(0, 0, 0));
+		txtpnMidcoastBaptistChurch.setBackground(Color.WHITE);
+		txtpnMidcoastBaptistChurch.setForeground(Color.BLACK);
 		txtpnMidcoastBaptistChurch.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		txtpnMidcoastBaptistChurch.setEditable(false);
 		txtpnMidcoastBaptistChurch.setText("Mid-Coast Baptist Church\r\nP.O. Box 537\r\nBrunswick, ME 04011-0537");
 		getContentPane().add(txtpnMidcoastBaptistChurch);
+	}
 
+	void setupTopSeparator() {
 		JSeparator separator = new JSeparator();
 		separator.setSize(new Dimension(0, 10));
 		separator.setForeground(new Color(0, 0, 0));
 		separator.setBounds(30, 71, 540, 2);
 		getContentPane().add(separator);
+	}
 
+	void setupReceiptDate(Receipt receipt) {
 		JLabel label = new JLabel(receipt.getReceiptDate());
 		label.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		label.setBounds(444, 25, 79, 20);
 		getContentPane().add(label);
+	}
 
+	void setupReceivedFromLabel() {
 		JLabel lblReceivedFrom = new JLabel("Received From:");
 		lblReceivedFrom.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		lblReceivedFrom.setBounds(37, 84, 132, 20);
 		getContentPane().add(lblReceivedFrom);
+	}
 
+	void setupReceivedFromAddress(Address address) {
 		JTextPane textPane = new JTextPane();
 		StringBuilder addressText = new StringBuilder();
 		addressText.append(address.getName());
@@ -85,12 +113,16 @@ public class ReceiptPrintOut extends JFrame implements Printable {
 		textPane.setBackground(Color.WHITE);
 		textPane.setBounds(67, 122, 221, 65);
 		getContentPane().add(textPane);
+	}
 
+	void setupReceiptAmount(Receipt receipt) {
 		JLabel lblAmount = new JLabel("Amount:      $      " + receipt.getAmount());
 		lblAmount.setFont(new Font("Serif", Font.PLAIN, 12));
 		lblAmount.setBounds(366, 111, 157, 40);
 		getContentPane().add(lblAmount);
+	}
 
+	void setupDesignation(Designation designation) {
 		JTextPane txtpnDesignationBobMitchell = new JTextPane();
 		txtpnDesignationBobMitchell.setText("Designation:       " + designation.getName());
 		txtpnDesignationBobMitchell.setForeground(Color.BLACK);
@@ -99,27 +131,9 @@ public class ReceiptPrintOut extends JFrame implements Printable {
 		txtpnDesignationBobMitchell.setBackground(Color.WHITE);
 		txtpnDesignationBobMitchell.setBounds(67, 188, 221, 20);
 		getContentPane().add(txtpnDesignationBobMitchell);
+	}
 
-		JLabel lblNewLabel = new JLabel("Thank you for your investment in church planting.");
-		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(137, 265, 318, 40);
-		getContentPane().add(lblNewLabel);
-
-		JLabel lblJesusSaidi = new JLabel(ReceiptPrinterProperties.getProperty("receipt.printout.verse"));
-		lblJesusSaidi.setForeground(new Color(0, 0, 0));
-		String verseFontName = ReceiptPrinterProperties.getProperty("receipt.printout.verse.font");
-		int verseFontSize = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.verse.font.size"));
-		lblJesusSaidi.setFont(new Font(verseFontName, Font.PLAIN, verseFontSize));
-		lblJesusSaidi.setBounds(72, 329, 467, 40);
-		getContentPane().add(lblJesusSaidi);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setSize(new Dimension(0, 10));
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(30, 305, 540, 13);
-		getContentPane().add(separator_1);
-		
+	void setupReceiptNotes(Receipt receipt) {
 		JTextPane txtpnThisIs = new JTextPane();
 		txtpnThisIs.setEditable(false);
 		txtpnThisIs.setForeground(Color.BLACK);
@@ -128,6 +142,32 @@ public class ReceiptPrintOut extends JFrame implements Printable {
 		txtpnThisIs.setText(receipt.getNotes());
 		txtpnThisIs.setBounds(150, 210, 284, 55);
 		getContentPane().add(txtpnThisIs);
+	}
+
+	void setupThankYouMessage() {
+		JLabel lblNewLabel = new JLabel("Thank you for your investment in church planting.");
+		lblNewLabel.setForeground(new Color(0, 0, 0));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(137, 265, 318, 40);
+		getContentPane().add(lblNewLabel);
+	}
+
+	void setupBottomSeparator() {
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setSize(new Dimension(0, 10));
+		separator_1.setForeground(Color.BLACK);
+		separator_1.setBounds(30, 305, 540, 13);
+		getContentPane().add(separator_1);
+	}
+
+	void setupVerse() {
+		JLabel lblJesusSaidi = new JLabel(ReceiptPrinterProperties.getProperty("receipt.printout.verse"));
+		lblJesusSaidi.setForeground(new Color(0, 0, 0));
+		String verseFontName = ReceiptPrinterProperties.getProperty("receipt.printout.verse.font");
+		int verseFontSize = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.verse.font.size"));
+		lblJesusSaidi.setFont(new Font(verseFontName, Font.PLAIN, verseFontSize));
+		lblJesusSaidi.setBounds(72, 329, 467, 40);
+		getContentPane().add(lblJesusSaidi);
 	}
 
 	public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
@@ -154,21 +194,23 @@ public class ReceiptPrintOut extends JFrame implements Printable {
 
 	public void printReceipt() {
 		PrinterJob job = PrinterJob.getPrinterJob();
-		Book book = new Book();
 		Paper paper = new Paper();
-		paper.setImageableArea(0, 0, 1000, 1000);
+		paper.setImageableArea(0, 0, Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.area.width")), 
+									 Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.area.height")));
 		PageFormat pf = new PageFormat();
 		pf.setOrientation(PageFormat.PORTRAIT);
 		pf.setPaper(paper);
 		
+		Book book = new Book();
 		book.append(this, pf);
 		job.setPageable(book);
+		
 		boolean ok = job.printDialog();
 		if (ok) {
 			try {
 				job.print();
 			} catch (PrinterException ex) {
-				/* The job did not successfully complete */
+				ReceiptPrinterLogger.logMessage(getClass(), Level.WARNING, "Exception while trying to print receipt", ex);
 			}
 		}
 	}

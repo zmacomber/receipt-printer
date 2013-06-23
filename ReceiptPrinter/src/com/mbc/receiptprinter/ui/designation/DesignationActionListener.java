@@ -12,9 +12,13 @@ import com.mbc.receiptprinter.ui.tabs.DesignationTab;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * Designation action class that gets invoked when a Designation is added
+ */
 public class DesignationActionListener implements ActionListener {
 	
 	private DesignationTab designationTab;
+	
 	public DesignationActionListener(DesignationTab designationTab) { this.designationTab = designationTab; }
 
 	@Override

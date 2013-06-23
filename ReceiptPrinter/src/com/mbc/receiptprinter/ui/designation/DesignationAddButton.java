@@ -1,11 +1,10 @@
 package com.mbc.receiptprinter.ui.designation;
 
-import java.awt.Font;
-
 import javax.swing.JButton;
 
 import com.mbc.receiptprinter.constant.ActionCommand;
 import com.mbc.receiptprinter.ui.tabs.DesignationTab;
+import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
 public class DesignationAddButton extends JButton {
 
@@ -15,6 +14,6 @@ public class DesignationAddButton extends JButton {
 		setText("Add Designation");
 		setActionCommand(ActionCommand.ADD_DESIGNATION);
 		addActionListener(new DesignationActionListener(designationTab));
-		setFont(new Font("Tahoma", Font.PLAIN, 12));
+		setFont(ReceiptPrinterUIUtils.getDefaultFont());
 	}
 }

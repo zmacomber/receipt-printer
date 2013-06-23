@@ -14,8 +14,17 @@ import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.validator.ReceiptValidator;
 
+/**
+ * Deletes a Receipt from the Receipt data file
+ */
 public class ReceiptDeleteProcess {
 
+	/**
+	 * Deletes a Receipt from the Receipt data file.  If validation errors occur during processing, a message will
+	 * be sent back to the caller indicating the errors.
+	 * @param receipt The Receipt to delete
+	 * @return An outcome message indicating if the delete was successful or not
+	 */
 	public String deleteReceipt(Receipt receipt) {
 		if (ReceiptValidator.receiptIsInvalid(receipt)) return ReceiptPrinterProperties.getProperty("receipt.outcome.deleted_is_invalid");
 		DeleteDao deleteDao = new DeleteDao();

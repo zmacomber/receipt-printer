@@ -1,11 +1,8 @@
 package com.mbc.receiptprinter.ui.totalyearlyamountreport;
 
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.table.TableCellRenderer;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.print.PrinterException;
@@ -14,6 +11,7 @@ import java.text.MessageFormat;
 
 import java.util.logging.Level;
 
+import com.mbc.receiptprinter.ui.print.TextTableRenderer;
 import com.mbc.receiptprinter.ui.tabs.TotalYearlyAmountReportTabColumns;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 
@@ -61,21 +59,5 @@ public class TotalYearlyAmountReportTable extends JTable {
 		}
 		setFont(font);
 		getTableHeader().setFont(headerFont);
-	}
-	
-	class TextTableRenderer extends JTextArea implements TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-	
-		public TextTableRenderer(Font font) {		
-			setLineWrap(true);
-			setWrapStyleWord(true);
-			setFont(font);
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			setText((value == null) ? "" : value.toString());
-			return this;
-		}
 	}
 }

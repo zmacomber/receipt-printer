@@ -13,7 +13,16 @@ import com.mbc.receiptprinter.dao.FetchDao;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterStringUtils;
 
+/**
+ * Responsible for the fetching of Designations
+ */
 public class DesignationFetchProcess {
+	
+	/**
+	 * Fetches a Designation by the Designation name
+	 * @param name The name of the Designation
+	 * @return The Designation that contains the given name; otherwise null
+	 */
 	public Designation fetchDesignation(String name) {
 		if (ReceiptPrinterStringUtils.isNullOrEmpty(name)) return null;
 		Designation fetched = null; 
@@ -25,6 +34,11 @@ public class DesignationFetchProcess {
 		}
 		return fetched;
 	}
+	
+	/**
+	 * Fetches all Designation records
+	 * @return A List of all of the Designation records in the Designation data file; otherwise an empty list 
+	 */
 	public List<Designation> fetchDesignations() {
 		FetchDao<Designation> designationFetchDao = new FetchDao<Designation>();
 		List<Designation> designations = new ArrayList<Designation>();
@@ -36,7 +50,12 @@ public class DesignationFetchProcess {
 		}
 		return designations;
 	}
-	public Object[][] getAddressData() {
+	
+	/**
+	 * Formats the Designation records in such a way as to be able to display them in a table on the user interface
+	 * @return A two dimensional Object array of Designation data that is used for display purposes
+	 */
+	public Object[][] getDesignationData() {
 		List<Designation> designations = fetchDesignations();
 		Collections.sort(designations);
 		Object[][] data = new Object[designations.size()][1];
@@ -47,6 +66,11 @@ public class DesignationFetchProcess {
 		}
 		return data;
 	}
+	
+	/**
+	 * Used for populating receipt designation combo boxes on the user interface
+	 * @return A String array of designations formatted for display on the receipt page
+	 */
 	public String[] getDesignationNames() {
 		List<Designation> designations = fetchDesignations();
 		Collections.sort(designations);

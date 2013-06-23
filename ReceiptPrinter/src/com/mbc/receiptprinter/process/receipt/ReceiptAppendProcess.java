@@ -14,7 +14,17 @@ import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.validator.ReceiptValidator;
 
+/**
+ * Appends a Receipt to the Receipt data file
+ */
 public class ReceiptAppendProcess {
+	
+	/**
+	 * Appends a Receipt to the Receipt data file.  If validation errors occur, a message will be sent back to the caller
+	 * indicating what errors occurred.
+	 * @param receipt The Receipt to append to the Receipt data file
+	 * @return An outcome message that indicates if the append was successful or otherwise
+	 */
 	public String appendReceipt(Receipt receipt) {
 		if (ReceiptValidator.receiptIsInvalid(receipt)) return ReceiptPrinterProperties.getProperty("receipt.outcome.added_is_invalid");
 		

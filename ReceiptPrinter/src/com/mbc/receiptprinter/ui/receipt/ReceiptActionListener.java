@@ -16,6 +16,9 @@ import com.mbc.receiptprinter.ui.tabs.ReceiptTab;
 import com.mbc.receiptprinter.util.ReceiptPrinterProperties;
 import com.mbc.receiptprinter.util.ReceiptPrinterUIUtils;
 
+/**
+ * Receipt action class that gets invoked when a receipt is added
+ */
 public class ReceiptActionListener implements ActionListener {
 	
 	private ReceiptTab receiptTab;
