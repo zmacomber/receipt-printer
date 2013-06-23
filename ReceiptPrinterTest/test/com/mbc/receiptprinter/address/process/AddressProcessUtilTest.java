@@ -46,5 +46,24 @@ public class AddressProcessUtilTest extends AddressBaseTest {
 	public void testAddressAlreadyExists_InvalidAddress() {
 		assertFalse(AddressProcessUtil.addressAlreadyExists(null, new ArrayList<Address>()));
 	}
-
+	
+	@Test
+	public void testExtractsFromReceiptAddress() {
+		String goodReceiptAddress = "Address name (some address 1, some city, some stateCode)";
+		
+		assertNotNull(AddressProcessUtil.extractNameFromReceiptAddress(goodReceiptAddress));
+		assertNotNull(AddressProcessUtil.extractAddress1FromReceiptAddress(goodReceiptAddress));
+		assertNotNull(AddressProcessUtil.extractCityFromReceiptAddress(goodReceiptAddress));
+		assertNotNull(AddressProcessUtil.extractStateCodeFromReceiptAddress(goodReceiptAddress));
+	}
+	
+	@Test
+	public void testExtractsFromReceiptAddress_NullTest() {
+		String badReceiptAddress = "Address name - some address 1 | some city | some stateCode";
+		
+		assertNull(AddressProcessUtil.extractNameFromReceiptAddress(badReceiptAddress));
+		assertNull(AddressProcessUtil.extractAddress1FromReceiptAddress(badReceiptAddress));
+		assertNull(AddressProcessUtil.extractCityFromReceiptAddress(badReceiptAddress));
+		assertNull(AddressProcessUtil.extractStateCodeFromReceiptAddress(badReceiptAddress));
+	}
 }

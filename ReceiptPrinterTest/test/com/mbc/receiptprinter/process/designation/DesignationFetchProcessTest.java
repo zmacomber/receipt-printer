@@ -39,7 +39,7 @@ public class DesignationFetchProcessTest extends DesignationBaseTest {
 
 	@Test
 	public void testGetAddressData() {
-		Object data[][] = fetchProcess.getAddressData();
+		Object data[][] = fetchProcess.getDesignationData();
 		assertEquals(data[0][0], designation.getName());
 	}
 
