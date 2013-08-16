@@ -166,7 +166,7 @@ public class ReceiptPrintOut extends JFrame implements Printable {
 		String verseFontName = ReceiptPrinterProperties.getProperty("receipt.printout.verse.font");
 		int verseFontSize = Integer.valueOf(ReceiptPrinterProperties.getProperty("receipt.printout.verse.font.size"));
 		lblJesusSaidi.setFont(new Font(verseFontName, Font.PLAIN, verseFontSize));
-		lblJesusSaidi.setBounds(72, 329, 467, 40);
+		lblJesusSaidi.setBounds(72, 305, 467, 40);
 		getContentPane().add(lblJesusSaidi);
 	}
 
