@@ -1,0 +1,17 @@
+com.mbc.receiptprinter.bean
+com.mbc.receiptprinter.constant
+com.mbc.receiptprinter.converter
+com.mbc.receiptprinter.dao
+com.mbc.receiptprinter.process.address
+com.mbc.receiptprinter.process.designation
+com.mbc.receiptprinter.process.receipt
+com.mbc.receiptprinter.ui
+com.mbc.receiptprinter.ui.address
+com.mbc.receiptprinter.ui.constraints
+com.mbc.receiptprinter.ui.designation
+com.mbc.receiptprinter.ui.print
+com.mbc.receiptprinter.ui.receipt
+com.mbc.receiptprinter.ui.tabs
+com.mbc.receiptprinter.ui.totalyearlyamountreport
+com.mbc.receiptprinter.util
+com.mbc.receiptprinter.validator
