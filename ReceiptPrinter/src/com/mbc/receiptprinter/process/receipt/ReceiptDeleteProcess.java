@@ -31,7 +31,7 @@ public class ReceiptDeleteProcess {
 		FetchDao<Receipt> fetchDao = new FetchDao<Receipt>();
 		String recordToDelete = new ConvertToStringRecordReceipt(receipt).build();
 		try {
-			List<Receipt> receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA_PATH, new ConvertFieldsToReceipt());
+			List<Receipt> receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA.getPath(), new ConvertFieldsToReceipt());
 			boolean receiptNotFound = true;
 			for (Receipt r : receipts) {
 				if (r.getReceiptDate().equals(receipt.getReceiptDate()) &&
@@ -43,7 +43,7 @@ public class ReceiptDeleteProcess {
 				}
 			}
 			if (receiptNotFound) { return ReceiptPrinterProperties.getProperty("receipt.outcome.not_found"); }
-			deleteDao.delete(FilePaths.RECEIPT_DATA_PATH, recordToDelete);
+			deleteDao.delete(FilePaths.RECEIPT_DATA.getPath(), recordToDelete);
 			return ReceiptPrinterProperties.getProperty("receipt.outcome.deleted");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while deleting receipt " + receipt, ioe);

@@ -43,7 +43,7 @@ public class DesignationFetchProcess {
 		FetchDao<Designation> designationFetchDao = new FetchDao<Designation>();
 		List<Designation> designations = new ArrayList<Designation>();
 		try {
-			designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA_PATH,
+			designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA.getPath(),
 														new ConvertFieldsToDesignation());
 		} catch (IOException e) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching designations", e);

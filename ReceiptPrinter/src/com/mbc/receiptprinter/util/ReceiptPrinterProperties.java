@@ -15,14 +15,14 @@ public class ReceiptPrinterProperties {
 		props = new Properties();
 		FileInputStream in = null;
 		try {
-			in = new FileInputStream(FilePaths.APPLICATION_PROPERTIES_PATH);
+			in = new FileInputStream(FilePaths.APPLICATION_PROPERTIES.getPath());
 			props.load(in);
 		}
 		catch (Exception e) {
 			// Log Exception and then exit out as this would be a serious error and should never happen...
 			ReceiptPrinterLogger.logMessage(ReceiptPrinterProperties.class,
 							Level.SEVERE,
-							"Exception loading " + FilePaths.APPLICATION_PROPERTIES_PATH + ".  Exiting application.",
+							"Exception loading " + FilePaths.APPLICATION_PROPERTIES.getPath() + ".  Exiting application.",
 							e);
 			System.exit(0);
 		} finally {

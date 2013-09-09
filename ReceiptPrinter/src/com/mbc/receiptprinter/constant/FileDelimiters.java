@@ -10,5 +10,6 @@ public class FileDelimiters {
 
 	public static final String FIELD  = String.valueOf((char)31);
 	public static final String RECORD = String.valueOf((char)30);
+	public static final char RECORD_CHAR = (char)30;
 	
 }

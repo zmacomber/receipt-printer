@@ -36,11 +36,11 @@ public class DesignationAppendProcess {
 		ReceiptPrinterNameUtils<Designation> nameUtils = new DesignationProcessUtil();
 		
 		try {
-			List<Designation> designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA_PATH, new ConvertFieldsToDesignation());
+			List<Designation> designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA.getPath(), new ConvertFieldsToDesignation());
 			if (nameUtils.nameAlreadyExists(designation.getName(), designations)) {
 				return ReceiptPrinterProperties.getProperty("designation.outcome.name_already_exists");
 			}
-			appendDao.append(FilePaths.DESIGNATION_DATA_PATH, convertToStringRecord);
+			appendDao.append(FilePaths.DESIGNATION_DATA.getPath(), convertToStringRecord);
 			return ReceiptPrinterProperties.getProperty("designation.outcome.added");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while appending designation - " + designation, ioe);

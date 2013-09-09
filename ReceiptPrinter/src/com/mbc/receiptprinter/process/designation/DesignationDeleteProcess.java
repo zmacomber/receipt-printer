@@ -34,7 +34,7 @@ public class DesignationDeleteProcess {
 		FetchDao<Designation> designationFetchDao = new FetchDao<Designation>();
 		String recordToDelete = new ConvertToStringRecordDesignation(designation).build();
 		try {
-			List<Designation> designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA_PATH, new ConvertFieldsToDesignation());
+			List<Designation> designations = designationFetchDao.fetchAll(FilePaths.DESIGNATION_DATA.getPath(), new ConvertFieldsToDesignation());
 			boolean designationNotFound = true;
 			for (Designation d : designations) {
 				if (d.getName().equals(designation.getName())) {
@@ -43,7 +43,7 @@ public class DesignationDeleteProcess {
 				}
 			}
 			if (designationNotFound) { return ReceiptPrinterProperties.getProperty("designation.outcome.not_found"); }
-			deleteDao.delete(FilePaths.DESIGNATION_DATA_PATH, recordToDelete);
+			deleteDao.delete(FilePaths.DESIGNATION_DATA.getPath(), recordToDelete);
 			return ReceiptPrinterProperties.getProperty("designation.outcome.deleted");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while deleting designation " + designation, ioe);

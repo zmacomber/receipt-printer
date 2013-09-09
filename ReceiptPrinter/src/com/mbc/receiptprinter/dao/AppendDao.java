@@ -1,6 +1,5 @@
 package com.mbc.receiptprinter.dao;
 
-import java.io.File;
 import java.io.IOException;
 
 import com.mbc.receiptprinter.constant.FileDelimiters;
@@ -19,7 +18,6 @@ public class AppendDao {
 	 * @throws IOException Possibly thrown when writeStringToFile is called
 	 */
 	public <T> void append(String dataFilePath, ConvertToStringRecord<T> convertToStringRecord) throws IOException {
-		File dataFile = new File(dataFilePath);
-		ReceiptPrinterFileUtils.writeStringToFile(dataFile, convertToStringRecord.build() + FileDelimiters.RECORD, true);
+		ReceiptPrinterFileUtils.writeStringToFile(dataFilePath, convertToStringRecord.build() + FileDelimiters.RECORD, true);
 	}
 }

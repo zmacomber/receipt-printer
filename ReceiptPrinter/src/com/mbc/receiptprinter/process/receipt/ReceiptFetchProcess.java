@@ -67,7 +67,7 @@ public class ReceiptFetchProcess {
 		FetchDao<Receipt> fetchDao = new FetchDao<Receipt>();
 		List<Receipt> receipts = new ArrayList<Receipt>();
 		try {
-			receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA_PATH, new ConvertFieldsToReceipt());
+			receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA.getPath(), new ConvertFieldsToReceipt());
 		} catch (IOException e) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching receipts", e);
 		}

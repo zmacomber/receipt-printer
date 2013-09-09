@@ -34,7 +34,7 @@ public class AddressDeleteProcess {
 		FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
 		String recordToDelete = new ConvertToStringRecordAddress(addr).build();
 		try {
-			List<Address> addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA_PATH, new ConvertFieldsToAddress());
+			List<Address> addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA.getPath(), new ConvertFieldsToAddress());
 			boolean addressNotFound = true;
 			for (Address a : addresses) {
 				if (a.getName().equals(addr.getName())) {
@@ -43,7 +43,7 @@ public class AddressDeleteProcess {
 				}
 			}
 			if (addressNotFound) { return ReceiptPrinterProperties.getProperty("address.outcome.not_found"); }
-			modifyAddressDao.delete(FilePaths.ADDRESS_DATA_PATH, recordToDelete);
+			modifyAddressDao.delete(FilePaths.ADDRESS_DATA.getPath(), recordToDelete);
 			return ReceiptPrinterProperties.getProperty("address.outcome.deleted");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while deleting address " + addr, ioe);

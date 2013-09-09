@@ -1,6 +1,5 @@
 package com.mbc.receiptprinter.dao;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,8 +31,7 @@ public class DeleteDao {
 			}
 		}
 		if (recordDeleted) {
-			File dataFile = new File(dataFilePath);
-			ReceiptPrinterFileUtils.writeStringToFile(dataFile, fileContents);
+			ReceiptPrinterFileUtils.writeStringToFile(dataFilePath, fileContents);
 		}
 	}
 }

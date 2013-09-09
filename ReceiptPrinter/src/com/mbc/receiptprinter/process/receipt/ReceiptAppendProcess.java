@@ -33,10 +33,10 @@ public class ReceiptAppendProcess {
 		FetchDao<Receipt> fetchReceiptDao = new FetchDao<Receipt>();
 		
 		try {
-			if (ReceiptProcessUtil.receiptAlreadyExists(receipt, fetchReceiptDao.fetchAll(FilePaths.RECEIPT_DATA_PATH, new ConvertFieldsToReceipt()))) {
+			if (ReceiptProcessUtil.receiptAlreadyExists(receipt, fetchReceiptDao.fetchAll(FilePaths.RECEIPT_DATA.getPath(), new ConvertFieldsToReceipt()))) {
 				return ReceiptPrinterProperties.getProperty("receipt.outcome.already_exists");
 			}
-			appendDao.append(FilePaths.RECEIPT_DATA_PATH, convertToStringRecord);
+			appendDao.append(FilePaths.RECEIPT_DATA.getPath(), convertToStringRecord);
 			return ReceiptPrinterProperties.getProperty("receipt.outcome.added");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while appending receipt - " + receipt, ioe);

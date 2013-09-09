@@ -93,7 +93,7 @@ public class AddressFetchProcess {
 		FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
 		List<Address> addresses = new ArrayList<Address>();
 		try {
-			addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA_PATH, new ConvertFieldsToAddress());
+			addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA.getPath(), new ConvertFieldsToAddress());
 		} catch (IOException e) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching addresses", e);
 		}

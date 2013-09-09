@@ -34,13 +34,13 @@ public class AddressAppendProcess {
 		FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
 		
 		try {
-			if (AddressProcessUtil.addressAlreadyExists(address, fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA_PATH, new ConvertFieldsToAddress()))) {
+			if (AddressProcessUtil.addressAlreadyExists(address, fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA.getPath(), new ConvertFieldsToAddress()))) {
 				return ReceiptPrinterProperties.getProperty("address.outcome.already_exists");
 			}
 			if (AddressProcessUtil.addressContainsInvalidCharacters(address)) {
 				return ReceiptPrinterProperties.getProperty("address.outcome.invalid_characters");
 			}
-			appendDao.append(FilePaths.ADDRESS_DATA_PATH, convertToStringRecord);
+			appendDao.append(FilePaths.ADDRESS_DATA.getPath(), convertToStringRecord);
 			return ReceiptPrinterProperties.getProperty("address.outcome.added");
 		} catch (IOException ioe) {
 			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while appending address - " + address, ioe);

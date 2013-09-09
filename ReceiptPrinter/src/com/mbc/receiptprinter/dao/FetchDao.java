@@ -23,8 +23,8 @@ public class FetchDao<T> {
 	 */
 	public List<T> fetchAll(String dataFilePath, ConvertFields<T> convertFields) throws IOException {
 		String fileContents = ReceiptPrinterFileUtils.getFileContents(dataFilePath);
-		List<T> fetchedList = new ArrayList<T>();
 		List<String> records = ReceiptPrinterFileUtils.convertFileContentsToList(fileContents);
+		List<T> fetchedList = new ArrayList<T>();
 		for (String record : records) {
 			String[] fields = convertFields.hasMultipleFields() ? record.split(FileDelimiters.FIELD) : new String[] { record };
 			fetchedList.add(convertFields.convert(fields));

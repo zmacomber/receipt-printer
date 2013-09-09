@@ -40,8 +40,8 @@ public class ReceiptPrinterLogger {
 	static FileHandler getFileHandler() {
 		FileHandler fileHandler = null;
 		try {
-			FileUtils.touch(new File(FilePaths.LOG_PATH));
-			fileHandler = new FileHandler(FilePaths.LOG_PATH, true);
+			FileUtils.touch(new File(FilePaths.LOG.getPath()));
+			fileHandler = new FileHandler(FilePaths.LOG.getPath(), true);
 			fileHandler.setFormatter(new SimpleFormatter());
 		} catch (IOException e) {
 			// If this occurs, there are serious issues in the application - exit out
