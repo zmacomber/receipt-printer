@@ -7,7 +7,7 @@
   <property name="build.dir" location="bin" />
   <property name="dist.dir" location="dist" />
   <property name="docs.dir" location="docs" />
-
+	
    <!-- Create a classpath container which can be later used in the ant task -->
    <path id="build.classpath">
 	<fileset dir="${lib.dir}">
@@ -48,7 +48,11 @@
 
   <!--Creates the deployable jar file  -->
   <target name="jar" depends="compile">
-    <jar destfile="${dist.dir}\ReceiptPrinter.jar" basedir="${build.dir}" >
+  	
+  	<!-- run the ant timestamp task -->
+  	<tstamp/>
+  	
+    <jar destfile="${dist.dir}\ReceiptPrinter${DSTAMP}.jar" basedir="${build.dir}" >
       <manifest>
         <attribute name="Main-Class" value="com.mbc.receiptprinter.ui.Main" />
       </manifest>
