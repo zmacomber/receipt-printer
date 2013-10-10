@@ -3,12 +3,10 @@ package com.mbc.receiptprinter.dao;
 import com.mbc.receiptprinter.constant.FileDelimiters;
 import com.mbc.receiptprinter.converter.ConvertFields;
 import com.mbc.receiptprinter.util.ReceiptPrinterFileUtils;
-import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Fetches records from a data file
@@ -35,7 +33,7 @@ public class FetchDao<T> {
 		}
 
         FETCH_ALL_COUNTER++;
-        ReceiptPrinterLogger.logMessage(FetchDao.class, Level.INFO, "FetchDao.fetchAll() has been called " + FETCH_ALL_COUNTER + " times");
+        System.out.println("FetchDao.fetchAll() has been called " + FETCH_ALL_COUNTER + " times");
 
         return fetchedList;
 	}
