@@ -1,19 +1,5 @@
 package com.mbc.receiptprinter.process.receipt;
 
-import java.io.IOException;
-
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.TreeSet;
-import java.util.Set;
-
 import com.mbc.receiptprinter.bean.Address;
 import com.mbc.receiptprinter.bean.Designation;
 import com.mbc.receiptprinter.bean.Receipt;
@@ -27,11 +13,22 @@ import com.mbc.receiptprinter.ui.tabs.TotalYearlyAmountReportTabColumns;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterStringUtils;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.logging.Level;
+
 /**
  * Responsible for the fetching of Receipts
  */
 public class ReceiptFetchProcess {
-	
+
+    private List<Receipt> receipts;
+
+    public ReceiptFetchProcess() {
+        receipts = new ArrayList<>();
+    }
+
 	/**
 	 * Fetches a Receipt by it's key fields.  The combination of receiptDate, address, designation and amount must
 	 * be unique in the application
@@ -64,13 +61,15 @@ public class ReceiptFetchProcess {
 	 * @return A List of all of the Receipt records in the Receipt data file; otherwise an empty list 
 	 */
 	public List<Receipt> fetchReceipts() {
-		FetchDao<Receipt> fetchDao = new FetchDao<Receipt>();
-		List<Receipt> receipts = new ArrayList<Receipt>();
-		try {
-			receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA.getPath(), new ConvertFieldsToReceipt());
-		} catch (IOException e) {
-			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching receipts", e);
-		}
+
+		if (receipts.size() == 0) {
+            FetchDao<Receipt> fetchDao = new FetchDao<Receipt>();
+            try {
+                receipts = fetchDao.fetchAll(FilePaths.RECEIPT_DATA.getPath(), new ConvertFieldsToReceipt());
+            } catch (IOException e) {
+                ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching receipts", e);
+            }
+        }
 		return receipts;
 	}
 	
@@ -79,11 +78,11 @@ public class ReceiptFetchProcess {
 	 * @return A two dimensional Object array of Receipt data that is used for display purposes
 	 */
 	public Object[][] getReceiptData() {
-		List<Receipt> receipts = fetchReceipts();
-		Collections.sort(receipts);
-		Object[][] data = new Object[receipts.size()][ReceiptTabColumns.values().length];
+		List<Receipt> r = fetchReceipts();
+		Collections.sort(r);
+		Object[][] data = new Object[r.size()][ReceiptTabColumns.values().length];
 		int counter = 0;
-		for (Receipt receipt : receipts) {
+		for (Receipt receipt : r) {
 			data[counter][ReceiptTabColumns.RECEIPT_DATE.getColumn()] = receipt.getReceiptDate();
 			data[counter][ReceiptTabColumns.ADDRESS.getColumn()] = AddressProcessUtil.getAddressForReceipt(receipt.getAddress());
 			data[counter][ReceiptTabColumns.DESIGNATION.getColumn()] = receipt.getDesignation().getName();

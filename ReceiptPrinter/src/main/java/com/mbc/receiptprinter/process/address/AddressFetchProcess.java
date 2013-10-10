@@ -1,10 +1,5 @@
 package com.mbc.receiptprinter.process.address;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
 import com.mbc.receiptprinter.bean.Address;
 import com.mbc.receiptprinter.constant.FilePaths;
 import com.mbc.receiptprinter.converter.ConvertFieldsToAddress;
@@ -13,11 +8,23 @@ import com.mbc.receiptprinter.ui.tabs.AddressTabColumns;
 import com.mbc.receiptprinter.util.ReceiptPrinterLogger;
 import com.mbc.receiptprinter.util.ReceiptPrinterStringUtils;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+
 /**
  * Responsible for the fetching of Addresses
  */
 public class AddressFetchProcess {
-	
+
+    private List<Address> addresses;
+
+    public AddressFetchProcess() {
+        addresses = new ArrayList<>();
+    }
+
 	/**
 	 * Fetches an Address by the Address id
 	 * @param id The id is the first field in an Address record
@@ -90,14 +97,17 @@ public class AddressFetchProcess {
 	 * @return A List of all of the Address records in the Address data file; otherwise an empty list 
 	 */
 	public List<Address> fetchAddresses() {
-		FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
-		List<Address> addresses = new ArrayList<Address>();
-		try {
-			addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA.getPath(), new ConvertFieldsToAddress());
-		} catch (IOException e) {
-			ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching addresses", e);
-		}
-		return addresses;
+
+		if (addresses.size() == 0) {
+            FetchDao<Address> fetchAddressDao = new FetchDao<Address>();
+		    try {
+			    addresses = fetchAddressDao.fetchAll(FilePaths.ADDRESS_DATA.getPath(), new ConvertFieldsToAddress());
+		    } catch (IOException e) {
+			    ReceiptPrinterLogger.logMessage(this.getClass(), Level.SEVERE, "IOException while fetching addresses", e);
+		    }
+        }
+
+        return addresses;
 	}
 	
 	/**
@@ -105,11 +115,11 @@ public class AddressFetchProcess {
 	 * @return A two dimensional Object array of Address data that is used for display purposes
 	 */
 	public Object[][] getAddressData() {
-		List<Address> addresses = fetchAddresses();
-		Collections.sort(addresses);
-		Object[][] data = new Object[addresses.size()][AddressTabColumns.values().length];
+		List<Address> a = fetchAddresses();
+		Collections.sort(a);
+		Object[][] data = new Object[a.size()][AddressTabColumns.values().length];
 		int counter = 0;
-		for (Address addr : addresses) {
+		for (Address addr : a) {
 			data[counter][AddressTabColumns.NAME.getColumn()] = addr.getName();
 			data[counter][AddressTabColumns.ADDRESS1.getColumn()] = addr.getAddress1();
 			data[counter][AddressTabColumns.ADDRESS2.getColumn()] = addr.getAddress2();
@@ -126,12 +136,12 @@ public class AddressFetchProcess {
 	 * @return A String array of addresses formatted for display on the receipt page
 	 */
 	public String[] getAddressesForReceipts() {
-		List<Address> addresses = fetchAddresses();
-		Collections.sort(addresses);
-		if (addresses.size() == 0) return new String[] { "" };
-		String[] addressesForReceipts = new String[addresses.size()];
+		List<Address> a = fetchAddresses();
+		Collections.sort(a);
+		if (a.size() == 0) return new String[] { "" };
+		String[] addressesForReceipts = new String[a.size()];
 		int counter = 0;
-		for (Address addr : addresses) {
+		for (Address addr : a) {
 			addressesForReceipts[counter] = AddressProcessUtil.getAddressForReceipt(addr);
 			counter++;
 		}
