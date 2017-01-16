@@ -1,9 +1,0 @@
-ReceiptPrinter was built using Eclipse Indigo.
-
-Make sure to run the tests in ReceiptPrinterTest often to verify any refactorings (create new tests as needed).
-
-The directory structure for the application properties, data and log files is the following (make sure to set this structure up before running the app)...
-USER_HOME/ReceiptPrinter
-USER_HOME/ReceiptPrinter/Application.properties
-USER_HOME/ReceiptPrinter/data
-USER_HOME/ReceiptPrinter/logs
