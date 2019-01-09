@@ -11,9 +11,17 @@ public class ReceiptPrinterUIUtils {
 
 	private static final Font defaultFont;
 	static {
-		defaultFont = new Font(ReceiptPrinterProperties.getProperty("receiptPrinter.default.fontName"), 
-				 			   Font.PLAIN, 
-				 			   Integer.valueOf(ReceiptPrinterProperties.getProperty("receiptPrinter.default.fontSize")));
+        Font font = null;
+
+        try {
+            font = new Font(ReceiptPrinterProperties.getProperty("receiptPrinter.default.fontName"), 
+                                   Font.PLAIN, 
+                                   Integer.valueOf(ReceiptPrinterProperties.getProperty("receiptPrinter.default.fontSize")));
+        } catch (Exception e) {
+            font = new Font("Tahoma", Font.PLAIN, 12);
+        }
+
+        defaultFont = font;
 	}
 	
 	public static Frame getMainFrame() {

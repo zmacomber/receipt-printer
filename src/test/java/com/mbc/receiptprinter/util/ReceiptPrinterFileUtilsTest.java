@@ -31,6 +31,8 @@ public class ReceiptPrinterFileUtilsTest {
 
 	@Test
 	public void testGetFileContents() throws Exception {
+        ReceiptPrinterFileUtils.writeStringToFile("test.txt", "testing....");
+
 		String fileContents = ReceiptPrinterFileUtils.getFileContents("test.txt");
 		assertNotNull(fileContents);
 	}

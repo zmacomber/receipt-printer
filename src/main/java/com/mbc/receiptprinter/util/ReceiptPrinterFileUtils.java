@@ -34,12 +34,21 @@ public class ReceiptPrinterFileUtils {
 	}
 	
 	public static String getFileContents(String filePath) throws IOException {
-		if (ReceiptPrinterStringUtils.isNullOrEmpty(filePath)) throw new IllegalArgumentException("File path must not be null or empty");
+		if (ReceiptPrinterStringUtils.isNullOrEmpty(filePath)) {
+            throw new IllegalArgumentException("File path must not be null or empty");
+        }
+
+		if (fileHasBeenUpdated.get(filePath) == null) {
+            throw new IOException("fileHasBeenUpdated.get(filePath) is null for filePath of " + filePath);
+        }
+
 		File f = new File(filePath);
+
 		if (fileHasBeenUpdated.get(filePath)) {
 			fileContents.put(filePath, FileUtils.readFileToString(f));
 			fileHasBeenUpdated.put(filePath, false);
 		}
+
 		return fileContents.get(filePath);
 	}
 
