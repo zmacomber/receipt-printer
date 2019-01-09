@@ -5,7 +5,7 @@ The directory structure for the application properties, data and log files is th
 
 USER_HOME/ReceiptPrinter
 
-USER_HOME/ReceiptPrinter/Application.properties
+USER_HOME/ReceiptPrinter/Application.properties (default Application.properties are found in resources folder of this project)
 
 USER_HOME/ReceiptPrinter/data
 
