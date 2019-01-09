@@ -17,8 +17,13 @@ public class ReceiptPrinterProperties {
 		try {
 			in = new FileInputStream(FilePaths.APPLICATION_PROPERTIES.getPath());
 			props.load(in);
-		}
-		catch (Exception e) {
+            if (props.size() == 0) {
+                throw new Exception(
+                    "No properties found. Please put properties in " + FilePaths.APPLICATION_PROPERTIES.getPath() + 
+                    ". Default properties can be found in resources directory of the project."
+                );
+            }
+		} catch (Exception e) {
 			// Log Exception and then exit out as this would be a serious error and should never happen...
 			ReceiptPrinterLogger.logMessage(ReceiptPrinterProperties.class,
 							Level.SEVERE,
